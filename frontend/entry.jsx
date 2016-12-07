@@ -1,7 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+
+import store from './store'
+import { receiveCurrentUser } from './actions/session_actions'
+
+import Root from './components/root'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('root')
-  ReactDOM.render(<h1>Hello World</h1>, root)
+  let currentUser = window.currentUser
+  if (currentUser) {
+    store.dispatch(receiveCurrentUser(currentUser))
+  }
+  ReactDOM.render(<Root store={store} />, document.getElementById('root'))
 })
